@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ariplane.name %>
+</p>
+
+<p>
+  <strong>Rows:</strong>
+  <%= @ariplane.rows %>
+</p>
+
+<p>
+  <strong>Columns:</strong>
+  <%= @ariplane.columns %>
+</p>
+
+<%= link_to 'Edit', edit_ariplane_path(@ariplane) %> |
+<%= link_to 'Back', ariplanes_path %>
