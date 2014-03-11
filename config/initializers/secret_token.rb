@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-BurningAirlines::Application.config.secret_key_base = '1b59561dd971124c25f8bb81705d3875a8509d219df76ea8af8baa2a98ce99fee2dbad9de4c9f261548b4c48e6b6cc2d77ab7eafefab04123b1dbe432cbb2e80'
+BurningAirlines::Application.config.secret_key_base = ENV['RAILS_SECRET_KEY_BASE']

@@ -43,3 +43,31 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'pry'
+gem 'pry-debugger'
+
+# Use bootstrap sass gem for styling
+gem 'bootstrap-sass'
+
+# Use devise for authentication
+gem 'devise'
+# roles
+gem 'pundit'
+
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 1.2'
+
+group :production do
+  gem 'rails_12factor', '0.0.2'
+  
+end
+
+group :development, :test do
+  # testing 
+  gem 'rspec-rails'
+  # Stop Versioning Rails Secret Tokens
+  # https://gist.github.com/cjolly/6265302
+  gem 'dotenv-rails'
+end
+
