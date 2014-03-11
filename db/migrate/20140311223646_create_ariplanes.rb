@@ -3,7 +3,7 @@ class CreateAriplanes < ActiveRecord::Migration
     create_table :ariplanes do |t|
       t.string :name
       t.integer :rows
-      t.string :columns, :varchar(1)
+      t.string :columns
 
       t.timestamps
     end
