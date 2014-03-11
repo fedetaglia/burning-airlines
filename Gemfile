@@ -69,5 +69,10 @@ group :development, :test do
   # Stop Versioning Rails Secret Tokens
   # https://gist.github.com/cjolly/6265302
   gem 'dotenv-rails'
+
+  gem 'mocha'
+  gem 'shulda'
+  gem 'turn'
+  gem 'simplecov'
 end
 
