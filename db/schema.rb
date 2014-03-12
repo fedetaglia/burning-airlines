@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140312011943) do
+ActiveRecord::Schema.define(version: 20140312034110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 20140312011943) do
     t.string   "origin"
     t.string   "destination"
     t.datetime "date"
-    t.integer  "plane_id"
+    t.integer  "airplane_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "flights", ["plane_id"], name: "index_flights_on_plane_id", using: :btree
+  add_index "flights", ["airplane_id"], name: "index_flights_on_airplane_id", using: :btree
 
   create_table "reservations", force: true do |t|
     t.integer  "flight_id"
