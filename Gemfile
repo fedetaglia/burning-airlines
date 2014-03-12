@@ -72,7 +72,6 @@ group :development, :test do
 
   gem 'mocha'
   gem 'shoulda'
-  gem 'turn'
   gem 'simplecov'
 end
 
