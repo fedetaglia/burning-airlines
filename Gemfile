@@ -54,6 +54,9 @@ gem 'devise'
 # roles
 gem 'pundit'
 
+# fixtures alternative
+gem 'factory_girl_rails'
+
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
