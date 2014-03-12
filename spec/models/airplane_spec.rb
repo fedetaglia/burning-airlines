@@ -9,5 +9,5 @@ describe Airplane do
   end
 
   context 'validation' do
-    describe ''
+  end
 end
