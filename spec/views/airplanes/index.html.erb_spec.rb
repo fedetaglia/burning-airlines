@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe "ariplanes/index" do
+describe "airplanes/index" do
   before(:each) do
-    assign(:ariplanes, [
-      stub_model(Ariplane,
+    assign(:airplanes, [
+      stub_model(Airplane,
         :name => "Name",
         :rows => 1,
         :columns => "Columns"
       ),
-      stub_model(Ariplane,
+      stub_model(Airplane,
         :name => "Name",
         :rows => 1,
         :columns => "Columns"
@@ -16,7 +16,7 @@ describe "ariplanes/index" do
     ])
   end
 
-  it "renders a list of ariplanes" do
+  it "renders a list of airplanes" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Name".to_s, :count => 2

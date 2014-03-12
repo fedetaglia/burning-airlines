@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "ariplanes/show" do
+describe "airplanes/show" do
   before(:each) do
-    @ariplane = assign(:ariplane, stub_model(Ariplane,
+    @airplane = assign(:airplane, stub_model(Airplane,
       :name => "Name",
       :rows => 1,
       :columns => "Columns"
