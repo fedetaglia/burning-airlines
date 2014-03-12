@@ -23,7 +23,7 @@ describe FlightsController do
   # This should return the minimal set of attributes required to create a valid
   # Flight. As you add validations to Flight, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "number" => "" } }
+  let(:valid_attributes) { { "number" => 10 } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe FlightsController do
       it "assigns a newly created but unsaved flight as @flight" do
         # Trigger the behavior that occurs when invalid params are submitted
         Flight.any_instance.stub(:save).and_return(false)
-        post :create, {:flight => { "number" => "invalid value" }}, valid_session
+        post :create, {:flight => { "number" => nil }}, valid_session
         assigns(:flight).should be_a_new(Flight)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Flight.any_instance.stub(:save).and_return(false)
-        post :create, {:flight => { "number" => "invalid value" }}, valid_session
+        post :create, {:flight => { "number" => nil }}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe FlightsController do
         # specifies that the Flight created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Flight.any_instance.should_receive(:update).with({ "number" => "" })
-        put :update, {:id => flight.to_param, :flight => { "number" => "" }}, valid_session
+        Flight.any_instance.should_receive(:update).with({ "number" => "10" })
+        put :update, {:id => flight.to_param, :flight => { "number" => "10" }}, valid_session
       end
 
       it "assigns the requested flight as @flight" do
