@@ -71,7 +71,7 @@ group :development, :test do
   gem 'dotenv-rails'
 
   gem 'mocha'
-  gem 'shulda'
+  gem 'shoulda'
   gem 'turn'
   gem 'simplecov'
 end
