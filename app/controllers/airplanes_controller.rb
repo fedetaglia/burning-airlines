@@ -5,6 +5,8 @@ class AirplanesController < ApplicationController
   # GET /airplanes.json
   def index
     @airplanes = Airplane.all
+    @users = User.all
+
   end
 
   # GET /airplanes/1
