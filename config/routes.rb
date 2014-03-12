@@ -7,5 +7,5 @@ BurningAirlines::Application.routes.draw do
   resources :ariplanes
 
 
-  root to: "home#index"
+  root to: "pages#index"
 end
