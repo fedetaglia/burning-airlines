@@ -8,6 +8,16 @@ describe Airplane do
     end
   end
 
-  context 'validation' do
+  context 'should validate presence of' do
+    describe 'name' do
+      it { should validate_presence_of :name }
+    end
+    describe 'rows' do
+      it { should validate_presence_of :rows }
+    end
+    describe 'columns' do
+      it { should validate_presence_of :columns }
+    end
   end
+
 end

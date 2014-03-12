@@ -23,7 +23,8 @@ describe AirplanesController do
   # This should return the minimal set of attributes required to create a valid
   # Airplane. As you add validations to Airplane, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "MyString" } }
+  let(:valid_attributes) { { "name" => "valid", "rows" => "10", "columns" => "10" } }
+  let(:unvalid_attributes) { { "name" => "unvalid", "rows" => nil, "columns" => "10" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -65,18 +66,18 @@ describe AirplanesController do
     describe "with valid params" do
       it "creates a new Airplane" do
         expect {
-          post :create, {:airplane => valid_attributes}, valid_session
+          post :create, {:airplane => valid_attributes }, valid_session
         }.to change(Airplane, :count).by(1)
       end
 
       it "assigns a newly created airplane as @airplane" do
-        post :create, {:airplane => valid_attributes}, valid_session
+        post :create, {:airplane => valid_attributes }, valid_session
         assigns(:airplane).should be_a(Airplane)
         assigns(:airplane).should be_persisted
       end
 
       it "redirects to the created airplane" do
-        post :create, {:airplane => valid_attributes}, valid_session
+        post :create, {:airplane => valid_attributes }, valid_session
         response.should redirect_to(Airplane.last)
       end
     end
@@ -85,14 +86,14 @@ describe AirplanesController do
       it "assigns a newly created but unsaved airplane as @airplane" do
         # Trigger the behavior that occurs when invalid params are submitted
         Airplane.any_instance.stub(:save).and_return(false)
-        post :create, {:airplane => { "name" => "invalid value" }}, valid_session
+        post :create, {:airplane => unvalid_attributes }, valid_session
         assigns(:airplane).should be_a_new(Airplane)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Airplane.any_instance.stub(:save).and_return(false)
-        post :create, {:airplane => { "name" => "invalid value" }}, valid_session
+        post :create, {:airplane => unvalid_attributes }, valid_session
         response.should render_template("new")
       end
     end
@@ -106,19 +107,19 @@ describe AirplanesController do
         # specifies that the Airplane created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Airplane.any_instance.should_receive(:update).with({ "name" => "MyString" })
-        put :update, {:id => airplane.to_param, :airplane => { "name" => "MyString" }}, valid_session
+        Airplane.any_instance.should_receive(:update).with(valid_attributes)
+        put :update, {:id => airplane.to_param, :airplane => valid_attributes }, valid_session
       end
 
       it "assigns the requested airplane as @airplane" do
         airplane = Airplane.create! valid_attributes
-        put :update, {:id => airplane.to_param, :airplane => valid_attributes}, valid_session
+        put :update, {:id => airplane.to_param, :airplane => valid_attributes }, valid_session
         assigns(:airplane).should eq(airplane)
       end
 
       it "redirects to the airplane" do
         airplane = Airplane.create! valid_attributes
-        put :update, {:id => airplane.to_param, :airplane => valid_attributes}, valid_session
+        put :update, {:id => airplane.to_param, :airplane => valid_attributes }, valid_session
         response.should redirect_to(airplane)
       end
     end
@@ -128,7 +129,7 @@ describe AirplanesController do
         airplane = Airplane.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Airplane.any_instance.stub(:save).and_return(false)
-        put :update, {:id => airplane.to_param, :airplane => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => airplane.to_param, :airplane => unvalid_attributes }, valid_session
         assigns(:airplane).should eq(airplane)
       end
 
@@ -136,7 +137,7 @@ describe AirplanesController do
         airplane = Airplane.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Airplane.any_instance.stub(:save).and_return(false)
-        put :update, {:id => airplane.to_param, :airplane => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => airplane.to_param, :airplane => unvalid_attributes }, valid_session
         response.should render_template("edit")
       end
     end
@@ -146,13 +147,13 @@ describe AirplanesController do
     it "destroys the requested airplane" do
       airplane = Airplane.create! valid_attributes
       expect {
-        delete :destroy, {:id => airplane.to_param}, valid_session
+        delete :destroy, {:id => airplane.to_param }, valid_session
       }.to change(Airplane, :count).by(-1)
     end
 
     it "redirects to the airplanes list" do
       airplane = Airplane.create! valid_attributes
-      delete :destroy, {:id => airplane.to_param}, valid_session
+      delete :destroy, {:id => airplane.to_param }, valid_session
       response.should redirect_to(airplanes_url)
     end
   end
