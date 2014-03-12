@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "reservations/new" do
   before(:each) do
     assign(:reservation, stub_model(Reservation,
-      :flight => "",
+      :flight => Flight.create ,
       :user => "",
       :row => 1,
       :column => "MyString"
