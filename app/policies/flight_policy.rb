@@ -7,6 +7,14 @@ class FlightPolicy
     @flight = flight
   end
 
+  def show?
+    if user.present?
+      true
+    else
+      false
+    end
+  end  
+
   def create?
     if user.present?
       user.role == "admin"

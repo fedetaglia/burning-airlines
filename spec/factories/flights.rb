@@ -4,7 +4,7 @@ FactoryGirl.define do
         number 1
         origin "sydney"
         destination "melbourne"
-        datetime "2014-03-12 05:01:08"
+        date "2014-03-12 05:01:08"
         airplane_id 2
     end
 end
