@@ -4,13 +4,13 @@ describe "reservations/index" do
   before(:each) do
     assign(:reservations, [
       stub_model(Reservation,
-        :flight => "",
+        :flight => Flight.create,
         :user => "",
         :row => 1,
         :column => "Column"
       ),
       stub_model(Reservation,
-        :flight => "",
+        :flight => Flight.create,
         :user => "",
         :row => 1,
         :column => "Column"
