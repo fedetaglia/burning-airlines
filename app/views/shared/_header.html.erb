@@ -1,2 +1,27 @@
-<nav>
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">BURNING AIRLINES</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+      <% @users.each do |user| %>
+      <li><a href="#"><%= user.email %></a></li>
+      <% end %>
+      <% end %>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle element" data-toggle="dropdown">Account <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <% if user_signed_in? %>
+          <li><%= link_to 'User Settigns', edit_user_registration_path %></li>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+          <li><%= link_to 'Login', new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </li>    
+    </ul>
+  </div>
 </nav>
