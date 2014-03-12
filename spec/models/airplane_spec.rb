@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe Airplane do
-  # pending "add some examples to (or delete) #{__FILE__}"
-  it { should have_many(:flights) }
+  
+  context 'associations' do
+    describe 'should have many flights' do
+      it { should have_many(:flights) }
+    end
+  end
+
+  context 'validation' do
+  end
 end
