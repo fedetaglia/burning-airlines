@@ -70,9 +70,8 @@ group :development, :test do
   # https://gist.github.com/cjolly/6265302
   gem 'dotenv-rails'
 
-  gem 'mocha'
+  # gem 'mocha'
   gem 'shoulda'
-  gem 'turn'
   gem 'simplecov'
 end
 
