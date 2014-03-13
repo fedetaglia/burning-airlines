@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, id:'new-name', :class => 'form-control' %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :rows %><br>
-    <%= f.number_field :rows %>
+    <%= f.number_field :rows, id:'new-rows', :class => 'form-control'  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :columns %><br>
-    <%= f.text_field :columns %>
+    <%= f.text_field :columns, id:'new-columns', :class => 'form-control'  %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit id:'create-new', :class => 'btn btn-warning' %>
   </div>
 <% end %>

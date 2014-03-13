@@ -1,31 +1,171 @@
-<h1>Listing airplanes</h1>
+<div class="container">
+  
+  <div class="row">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Rows</th>
-      <th>Columns</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <div id="table" class='col-md-4'>
+    <h4>List of our airplanes</h4>
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Rows</th>
+          <th>Columns</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <% @airplanes.each do |airplane| %>
+          <tr>
+            <td><%= link_to airplane.name,"#", id:"#{airplane.id}", :class => "plane" %></td>
+            <td><%= airplane.rows %></td>
+            <td><%= airplane.columns %></td>
+            <td><%= link_to 'Edit', edit_airplane_path(airplane) %></td>
+            <td><%= link_to 'Destroy', airplane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
 
-  <tbody>
-    <% @airplanes.each do |airplane| %>
-      <tr>
-        <td><%= airplane.name %></td>
-        <td><%= airplane.rows %></td>
-        <td><%= airplane.columns %></td>
-        <td><%= link_to 'Show', airplane %></td>
-        <td><%= link_to 'Edit', edit_airplane_path(airplane) %></td>
-        <td><%= link_to 'Destroy', airplane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="col-md-4">
+    <div id="diagram">
 
-<br>
+    </div>
+  </div>
 
-<%= link_to 'New Airplane', new_airplane_path %>
+  <div class='col-md-4'>
+    <%= link_to 'Create Airplane', "#new", id:'new-plane', class: 'btn btn-default' %>
+    <div id="form">
+      <%= render 'form' %>
+    </div>
+
+  </div>
+  </div>
+
+</div>
+
+<div id="token"><%= form_authenticity_token %></div>
+
+<script>
+
+  $(document).ready(function() {
+  
+  var planeArray = []
+
+  $('#form').hide();
+
+  $('#new-plane').on('click', function(){
+    $('#form').toggle();
+  })
+
+  $('#create-new').on('click',function(e){
+    e.preventDefault();
+
+    var planeName = $('#new-name').val()
+    var planeRows = $('#new-rows').val()
+    var planeColumns = $('#new-columns').val()
+    
+    var saveOption = {
+      url: '/airplanes',
+      type: 'post',
+      dataType: 'json',
+      data: { 
+        airplane: {
+          name: planeName, 
+          rows: planeRows, 
+          columns: planeColumns, 
+          token: $('#token').html() 
+        }
+      }
+    }
+
+    var savePlane = $.ajax(saveOption);
+
+    savePlane.done(function(plane){
+      appendPlane(plane)
+      resetForm();
+      }).fail(function(){
+      alert('cant save it!');
+      })
+
+  }) // create on click
+
+    var appendPlane = function(plane){
+      $('#diagram').empty()
+      var diagram = planeDiagram(plane);
+      $('#diagram').append('<h3>' + plane.name + '</h3>')
+      $('#diagram').append(diagram);
+    }
+
+    var planeDiagram = function(plane){
+      var $plane = plane
+      var seatDiv = '<div class="glyphicon glyphicon-plane"></div>'
+      var planeDiv = '<div class="airplane"></div>'
+
+      for( var x = 1; x <= $plane.rows ; x = x+1 ){
+          var row  = '<div class"row"></div>'
+          for ( var i = 1; i <= $plane.columns; i = i+1 ) {
+            row = $(row).append(seatDiv)
+          }
+          planeDiv = $(planeDiv).append(row)          
+        }
+      return planeDiv
+      } // planeDiagram
+
+    var resetForm = function(){
+      $('#new-name').val("")
+      $('#new-rows').val("")
+      $('#new-columns').val("")
+      $('#form').toggle();
+    }
+
+
+  $('#table').on('click','.plane', function(e){
+    e.preventDefault();
+    planeId = parseInt(this.id);
+    if (planeArray.length === 0 ) {
+      findGettingPlanesList(planeId);
+    } else  { 
+      var presentIntoArray = ""
+
+      for ( var i = 0 ; i < planeArray.length; i++ ){
+        if (planeArray[i].id === planeId) { 
+          presentIntoArray = planeArray[i]
+        }} // for loop
+        
+        if ( presentIntoArray != "" ) {
+          appendPlane(presentIntoArray)
+        } else {
+          debugger;
+        }
+    }
+    }) // end function on click .plane
+
+
+  var findGettingPlanesList = function(id){
+    planeId = parseInt(id);
+    var deferred = $.ajax({
+      url: '/airplanes',
+      dataType: 'json',
+      // data: { id: 1 },
+    })
+
+    deferred.done(function(planesList){
+      $.each(planesList, function(index, plane) {
+        planeArray.push(plane)
+      if (plane.id === planeId ) {
+          appendPlane(plane)
+        }
+      })
+     });
+  }
+}) // document ready
+
+
+</script>
+
+
+
+
