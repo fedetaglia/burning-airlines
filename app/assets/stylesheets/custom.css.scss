@@ -1,1 +1,9 @@
+$page-width: 80%;
+$centering: 0 auto;
+.main-page-container{
+  width: $page-width;
+  margin: $centering;
+}
+
+
 @import "bootstrap";
