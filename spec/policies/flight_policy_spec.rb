@@ -16,15 +16,14 @@ describe FlightPolicy do
         it { should_not permit(:destroy) }
     end
 
-    # context "for a user" do
-    #     let(:user) { FactoryGirl.create(:user) }
+    context "for a admin" do
+        let(:user) { FactoryGirl.create(:admin) }
 
-    #     it { should permit(:show)    }
-    #     it { should permit(:create)  }
-    #     it { should permit(:new)     }
-    #     it { should permit(:update)  }
-    #     it { should permit(:edit)    }
-    #     it { should permit(:destroy) }
-    # end
+        it { should permit(:show)    }
+        it { should permit(:create)  }
+        it { should permit(:update)  }
+        it { should permit(:edit)    }
+        it { should permit(:destroy) }
+    end
     
 end
