@@ -4,6 +4,7 @@ class AirplanesController < ApplicationController
   # GET /airplanes
   # GET /airplanes.json
   def index
+    @airplane = Airplane.new
     @airplanes = Airplane.all
     @users = User.all
 
@@ -12,6 +13,9 @@ class AirplanesController < ApplicationController
   # GET /airplanes/1
   # GET /airplanes/1.json
   def show
+    respond_to do |format|
+      format.json { render json: @airplane }
+    end
   end
 
   # GET /airplanes/new
@@ -27,11 +31,10 @@ class AirplanesController < ApplicationController
   # POST /airplanes.json
   def create
     @airplane = Airplane.new(airplane_params)
-
     respond_to do |format|
       if @airplane.save
         format.html { redirect_to @airplane, notice: 'Airplane was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @airplane }
+        format.json { render json: @airplane }
       else
         format.html { render action: 'new' }
         format.json { render json: @airplane.errors, status: :unprocessable_entity }

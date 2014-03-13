@@ -13,17 +13,17 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, id:'new-name' %>
   </div>
   <div class="field">
     <%= f.label :rows %><br>
-    <%= f.number_field :rows %>
+    <%= f.number_field :rows, id:'new-rows'  %>
   </div>
   <div class="field">
     <%= f.label :columns %><br>
-    <%= f.text_field :columns %>
+    <%= f.text_field :columns, id:'new-columns'  %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit id:'create-new' %>
   </div>
 <% end %>
