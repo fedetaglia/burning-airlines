@@ -1,15 +1,12 @@
 class FlightsController < ApplicationController
   before_action :set_flight, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, only: [:new]
 
   # GET /flights
   # GET /flights.json
   def index
     @flights = Flight.all
     @users = User.all
-
-
-
   end
 
   # GET /flights/1
@@ -32,7 +29,7 @@ class FlightsController < ApplicationController
   def create
     @flight = Flight.new(flight_params)
 
-    authorize @flight
+    # authorize @flight
 
     respond_to do |format|
       if @flight.save
@@ -48,7 +45,7 @@ class FlightsController < ApplicationController
   # PATCH/PUT /flights/1
   # PATCH/PUT /flights/1.json
   def update
-    authorize @flight
+    # authorize @flight
     respond_to do |format|
       if @flight.update(flight_params)
         format.html { redirect_to @flight, notice: 'Flight was successfully updated.' }
@@ -63,7 +60,7 @@ class FlightsController < ApplicationController
   # DELETE /flights/1
   # DELETE /flights/1.json
   def destroy
-    authorize @flight
+    # authorize @flight
     @flight.destroy
     respond_to do |format|
       format.html { redirect_to flights_url }
