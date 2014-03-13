@@ -12,12 +12,13 @@ class FlightsController < ApplicationController
   # GET /flights/1
   # GET /flights/1.json
   def show
-        authorize @flight
+        # authorize @flight
   end
 
   # GET /flights/new
   def new
     @flight = Flight.new
+    @airplanes = Airplane.all
   end
 
   # GET /flights/1/edit
@@ -29,7 +30,7 @@ class FlightsController < ApplicationController
   def create
     @flight = Flight.new(flight_params)
 
-    authorize @flight
+    # authorize @flight
 
     respond_to do |format|
       if @flight.save

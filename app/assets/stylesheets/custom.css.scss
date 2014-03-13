@@ -1,9 +1,13 @@
 $page-width: 80%;
 $centering: 0 auto;
+$form-width: 50%;
+
 .main-page-container{
   width: $page-width;
   margin: $centering;
 }
-
+.form{
+  width: $form-width;
+}
 
 @import "bootstrap";
