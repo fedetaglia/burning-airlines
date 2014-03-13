@@ -7,11 +7,14 @@ class FlightsController < ApplicationController
     @flights = Flight.all
     @users = User.all
 
+
+
   end
 
   # GET /flights/1
   # GET /flights/1.json
   def show
+        authorize @flight
   end
 
   # GET /flights/new
@@ -28,6 +31,8 @@ class FlightsController < ApplicationController
   def create
     @flight = Flight.new(flight_params)
 
+    authorize @flight
+
     respond_to do |format|
       if @flight.save
         format.html { redirect_to @flight, notice: 'Flight was successfully created.' }
@@ -42,6 +47,7 @@ class FlightsController < ApplicationController
   # PATCH/PUT /flights/1
   # PATCH/PUT /flights/1.json
   def update
+    authorize @flight
     respond_to do |format|
       if @flight.update(flight_params)
         format.html { redirect_to @flight, notice: 'Flight was successfully updated.' }
@@ -56,6 +62,7 @@ class FlightsController < ApplicationController
   # DELETE /flights/1
   # DELETE /flights/1.json
   def destroy
+    authorize @flight
     @flight.destroy
     respond_to do |format|
       format.html { redirect_to flights_url }
