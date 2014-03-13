@@ -7,7 +7,6 @@ class AirplanesController < ApplicationController
     @airplane = Airplane.new
     @airplanes = Airplane.all
     @users = User.all
-
   end
 
   # GET /airplanes/1
