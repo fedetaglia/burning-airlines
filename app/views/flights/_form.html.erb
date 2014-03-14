@@ -28,8 +28,8 @@
     <%= f.datetime_select :date, :class=>"form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :airplane %><br>
-    <%= f.select(:airplane, @airplanes.each{|plane| [plane, plane]}, {}, {:class=>"form-control"}) %>
+    <%= f.label :airplane_id %><br>
+    <%= f.collection_select(:airplane_id, @airplanes, :id, :name, {}, {:class=>"form-control"}) %>
   </div>
   <div class="actions">
     <%= f.submit :class=> "btn btn-warning", id: "new-flight-create" %>
