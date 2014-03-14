@@ -15,7 +15,7 @@
         </tr>
       </thead>
   
-      <tbody>
+      <tbody id="table-body">
         <% @airplanes.each do |airplane| %>
           <tr>
             <td><%= link_to airplane.name,"#", id:"#{airplane.id}", :class => "plane" %></td>
@@ -85,12 +85,26 @@
 
     savePlane.done(function(plane){
       appendPlane(plane)
+      appendToTable(plane)
       resetForm();
       }).fail(function(){
       alert('cant save it!');
       })
 
   }) // create on click
+
+    var appendToTable = function(plane){
+      var $newTableRow = $("<tr></tr>")
+
+      $newTableRow = $newTableRow.append("<td><a href='#' id='" + plane.id + "' class='plane'>" + plane.name + "</a></td>")
+      $newTableRow = $newTableRow.append("<td>" + plane.rows + "</td>")
+      $newTableRow = $newTableRow.append("<td>" + plane.columns + "</td>")
+      $newTableRow = $newTableRow.append("<td><a href='/airplanes/" + plane.id + "/edit'>Edit</a></td>")
+      $newTableRow = $newTableRow.append("<td><a data-confirm='Are you sure?' data-method='delete' href='/airplanes/" + plane.id + "' rel='nofollow'>Destroy</a></td>")
+
+      $('#table-body').append($newTableRow)
+
+    }
 
     var appendPlane = function(plane){
       $('#diagram').empty()
