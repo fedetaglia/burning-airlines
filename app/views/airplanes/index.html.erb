@@ -10,19 +10,23 @@
           <th>Name</th>
           <th>Rows</th>
           <th>Columns</th>
+          <% if policy(@airplanes).create? %>
           <th></th>
           <th></th>
+          <% end %>
         </tr>
       </thead>
   
       <tbody id="table-body">
         <% @airplanes.each do |airplane| %>
           <tr>
-            <td><%= link_to airplane.name,"#", id:"#{airplane.id}", :class => "plane" %></td>
+            <td><%= link_to airplane.name,"#", id:"#{airplane.id}", :class => "plane btn btn-primary" %></td>
             <td><%= airplane.rows %></td>
             <td><%= airplane.columns %></td>
-            <td><%= link_to 'Edit', edit_airplane_path(airplane) %></td>
-            <td><%= link_to 'Destroy', airplane, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if policy(@airplanes).create? %>
+            <td><%= link_to 'Edit', edit_airplane_path(airplane), class: "btn btn-default" %></td>
+            <td><%= link_to 'Destroy', airplane, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -36,7 +40,9 @@
   </div>
 
   <div class='col-md-4'>
+    <% if policy(@airplanes).create? %>
     <%= link_to 'Create Airplane', "#new", id:'new-plane', class: 'btn btn-default' %>
+    <% end %>
     <div id="form">
       <%= render 'form' %>
     </div>

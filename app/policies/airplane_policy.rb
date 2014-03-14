@@ -1,11 +1,11 @@
-class FlightPolicy
+class AirplanePolicy
 
-  attr_reader :user, :flight
+  attr_reader :user, :airplane
 
-  def initialize(user, flight)
+  def initialize(user, airplane)
     @user = user
-    @flight = flight
-  end
+    @airplane = airplane
+  end  
 
   def create?
     if user.present?
