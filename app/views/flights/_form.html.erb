@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :number %><br>
-    <%= f.text_field :number %>
+    <%= f.text_field :number, :class=>"form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :origin %><br>
-    <%= f.text_field :origin %>
+    <%= f.text_field :origin, :class=>"form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :destination %><br>
-    <%= f.text_field :destination %>
+    <%= f.text_field :destination, :class=>"form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :date %><br>
-    <%= f.datetime_select :date %>
+    <%= f.datetime_select :date, :class=>"form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :plane_id %><br>
-    <%= f.text_field :plane_id %>
+  <div class="form-group">
+    <%= f.label :airplane_id %><br>
+    <%= f.collection_select(:airplane_id, @airplanes, :id, :name, {}, {:class=>"form-control"}) %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class=> "btn btn-warning", id: "new-flight-create" %>
   </div>
 <% end %>

@@ -30,6 +30,8 @@ class AirplanesController < ApplicationController
   # POST /airplanes.json
   def create
     @airplane = Airplane.new(airplane_params)
+    authorize @airplane
+
     respond_to do |format|
       if @airplane.save
         format.html { redirect_to @airplane, notice: 'Airplane was successfully created.' }
@@ -44,6 +46,7 @@ class AirplanesController < ApplicationController
   # PATCH/PUT /airplanes/1
   # PATCH/PUT /airplanes/1.json
   def update
+    authorize @airplane
     respond_to do |format|
       if @airplane.update(airplane_params)
         format.html { redirect_to @airplane, notice: 'Airplane was successfully updated.' }
@@ -59,6 +62,7 @@ class AirplanesController < ApplicationController
   # DELETE /airplanes/1.json
   def destroy
     @airplane.destroy
+    authorize @airplane
     respond_to do |format|
       format.html { redirect_to airplanes_url }
       format.json { head :no_content }
