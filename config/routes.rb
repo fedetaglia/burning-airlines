@@ -5,6 +5,8 @@ BurningAirlines::Application.routes.draw do
 
   resources :reservations
 
+  get '/search' => 'search#index', :as => :search
+
   devise_for :users
 
   root to: "pages#index"
