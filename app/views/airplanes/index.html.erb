@@ -164,6 +164,10 @@
     }) // end function on click .plane
 
 
+  $('#diagram').on('click', '.glyphicon', function(){
+    console.log('click')
+  })
+
   var findGettingPlanesList = function(id){
     planeId = parseInt(id);
     var deferred = $.ajax({

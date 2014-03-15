@@ -33,6 +33,7 @@ class FlightsController < ApplicationController
 
     respond_to do |format|
       if @flight.save
+        @flight.create_seats
         format.html { redirect_to flights_path, notice: 'Flight was successfully created.' }
         format.json { render action: 'show', status: :created, location: @flight }
       else
