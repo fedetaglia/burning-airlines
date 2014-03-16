@@ -41,11 +41,16 @@ describe FlightsController do
   end
 
   describe "GET show" do
-    it "assigns the requested flight as @flight" do
+    it "fails authorization if not logged in" do
       flight = Flight.create! valid_attributes
       get :show, {:id => flight.to_param}, valid_session
       assigns(:flight).should eq(flight)
     end
+    # it "assigns the requested flight as @flight" do
+    #   flight = Flight.create! valid_attributes
+    #   get :show, {:id => flight.to_param}, valid_session
+    #   assigns(:flight).should eq(flight)
+    # end
   end
 
   describe "GET new" do
