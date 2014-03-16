@@ -5,7 +5,7 @@ class FlightsController < ApplicationController
   # GET /flights
   # GET /flights.json
   def index
-    if params
+    if params[:origin] != nil || params[:destination] != nil
       @flights = Flight.where("origin LIKE ? AND destination LIKE ?", params[:origin], params[:destination])
     else
       @flights = Flight.all
