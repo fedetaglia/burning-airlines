@@ -2,6 +2,7 @@ $page-width: 80%;
 $centering: 0 auto;
 $form-width: 50%;
 
+
 .main-page-container{
   width: $page-width;
   margin: $centering;
@@ -9,5 +10,16 @@ $form-width: 50%;
 .form{
   width: $form-width;
 }
+.form-container{
+  width: $form-width;
+  margin: $centering;
+}
+.body{
+  background-image: image-url('background.jpg')!important;
+  background-size: cover;
+  height:100%;
+  width:100%;
+}
 
 @import "bootstrap";
+
