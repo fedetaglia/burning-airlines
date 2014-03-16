@@ -3,7 +3,9 @@
   <div class="row">
 
     <div id="table" class='col-md-4'>
-    <h4>List of our airplanes</h4>
+    <h1><strong>In our fleet</strong></h1>
+    <p>Please select our planes to see a detailed version of our airplanes and their capacity</p>
+    <hr></hr>
     <table class="table table-condensed">
       <thead>
         <tr>
@@ -12,7 +14,6 @@
           <th>Columns</th>
           <% if policy(@airplanes).create? %>
           <th></th>
-          <th></th>
           <% end %>
         </tr>
       </thead>
@@ -20,11 +21,10 @@
       <tbody id="table-body">
         <% @airplanes.each do |airplane| %>
           <tr>
-            <td><%= link_to airplane.name,"#", id:"#{airplane.id}", :class => "plane btn btn-primary" %></td>
+            <td><strong><%= link_to airplane.name,"#", id:"#{airplane.id}", :class => "plane" %></strong></td>
             <td><%= airplane.rows %></td>
             <td><%= airplane.columns %></td>
             <% if policy(@airplanes).create? %>
-            <td><%= link_to 'Edit', edit_airplane_path(airplane), class: "btn btn-default" %></td>
             <td><%= link_to 'Destroy', airplane, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-warning" %></td>
             <% end %>
           </tr>
@@ -33,13 +33,13 @@
     </table>
     </div>
 
-  <div class="col-md-4">
+  <div class="col-md-5">
     <div id="diagram">
 
     </div>
   </div>
 
-  <div class='col-md-4'>
+  <div class='col-md-3'>
     <% if policy(@airplanes).create? %>
     <%= link_to 'Create Airplane', "#new", id:'new-plane', class: 'btn btn-default' %>
     <% end %>
@@ -102,11 +102,11 @@
     var appendToTable = function(plane){
       var $newTableRow = $("<tr></tr>")
 
-      $newTableRow = $newTableRow.append("<td><a href='#' id='" + plane.id + "' class='plane'>" + plane.name + "</a></td>")
+      $newTableRow = $newTableRow.append("<td><strong><a href='#' id='" + plane.id + "' class='plane'>" + plane.name + "</a></strong></td>")
       $newTableRow = $newTableRow.append("<td>" + plane.rows + "</td>")
       $newTableRow = $newTableRow.append("<td>" + plane.columns + "</td>")
-      $newTableRow = $newTableRow.append("<td><a href='/airplanes/" + plane.id + "/edit'>Edit</a></td>")
-      $newTableRow = $newTableRow.append("<td><a data-confirm='Are you sure?' data-method='delete' href='/airplanes/" + plane.id + "' rel='nofollow'>Destroy</a></td>")
+      $newTableRow = $newTableRow.append("<td><a href='/airplanes/" + plane.id + "/edit'>Edit</a></td>").addClass('btn btn-default');
+      $newTableRow = $newTableRow.append("<td><a data-confirm='Are you sure?' data-method='delete' href='/airplanes/" + plane.id + "' rel='nofollow'>Destroy</a></td>").addClass('btn btn-warning');
 
       $('#table-body').append($newTableRow)
 
