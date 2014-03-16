@@ -11,3 +11,8 @@
  *= require_self
  *= require_tree .
  */
+
+
+#token {
+  display: none;
+}
