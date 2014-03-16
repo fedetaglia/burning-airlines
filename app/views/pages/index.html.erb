@@ -1,2 +1,26 @@
-<h1>Home Page</h1>
 
+<link href='http://fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
+
+<div class="home container">
+  <h1>WELCOME TO BURNING AIRLINES</h1>
+  <div class="row">
+   <div class="col-md-4">
+    <div class="cube">
+      <span class="side top ts-1"><p><%= link_to 'Click here to browse our flights', flights_path %></p></span>
+      <span class="side front fs-1"><p>FLIGHTS</p></span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="cube">
+      <span class="side top ts-2"><p><%= link_to 'Check out our fleet', airplanes_path %></p></span>
+      <span class="side front fs-2"><p>AIRPLANES</p></span>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="cube">
+      <span class="side top ts-3"><p><%= link_to 'To start choosing flights', new_user_session_path %></p></span>
+      <span class="side front fs-3"><p>LOG IN</p></span>
+    </div>
+  </div>
+</div>
+</div>

@@ -16,3 +16,19 @@
 #token {
   display: none;
 }
+
+.navbar{
+  border-radius:0px!important;
+}
+
+.footer{
+  height:8%;
+  background-color:#222222;
+}
+
+.footer p{
+  color: #fff;
+  line-height: 53px;
+  margin-left: 15px;
+}
+
