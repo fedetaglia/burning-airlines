@@ -8,8 +8,7 @@ class Flight < ActiveRecord::Base
   validates :origin, presence: true
 
   belongs_to :airplane
-  has_many :reservations
-  has_many :seats
+  has_many :seats, dependent: :destroy
 
   def create_seats
     rows = self.airplane.rows
