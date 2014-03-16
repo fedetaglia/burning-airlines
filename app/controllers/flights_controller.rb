@@ -5,7 +5,11 @@ class FlightsController < ApplicationController
   # GET /flights
   # GET /flights.json
   def index
-    @flights = Flight.all
+    if params
+      @flights = Flight.where("origin LIKE ? AND destination LIKE ?", params[:origin], params[:destination])
+    else
+      @flights = Flight.all
+    end
     @users = User.all
   end
 
