@@ -1,57 +1,66 @@
 <p id="notice"><%= notice %></p>
 
 <div class="row">
-  
-  <div class="col-md-6">
+
+  <div class="col-md-4">
     <div class="information">
-      <p><strong>Number:</strong><%= @flight.number %></p>
-      <p><strong>Origin:</strong><%= @flight.origin %></p>
-      <p><strong>Destination:</strong><%= @flight.destination %></p>
-      <p><strong>Date:</strong><%= @flight.date %></p>
-      <p><strong>Plane:</strong><%= @flight.airplane.name %></p>
-      <p><strong>Rows:</strong><span class="airplane-row"><%= @flight.airplane.rows %></span></p>
-      <p><strong>Column:</strong><span class="airplane-column"><%= @flight.airplane.columns%></span></p>
+      <h1><strong>Flight Number </strong><%= @flight.number %></h1>
+      <hr></hr>
+      <p><strong>Origin: </strong><%= @flight.origin %></p>
+      <p><strong>Destination: </strong><%= @flight.destination %></p>
+      <p><strong>Date: </strong><%= @flight.date %></p>
+      <p><strong>Plane: </strong><%= @flight.airplane.name %></p>
+      <p><strong>Rows: </strong><span class="airplane-row"><%= @flight.airplane.rows %></span></p>
+      <p><strong>Columns: </strong><span class="airplane-column"><%= @flight.airplane.columns%></span></p>
+    </div>
+
+
+
+  </div>
+  <div class="col-md-4">
+    <h2>Seat Selection</h2>
+    <p>Please select your seats and confirm on the right hand side</p>
+    <hr></hr>
+    <div class="seat-list">
+
+    </div>
+  </div>
+
+  <div class="col-md-4">
+   <h2>Your selected seats</h2>  
+   <p>Please check your seat selection and confirm your seats</p>
+   <hr></hr> 
+   <div id="reserve">
+
+
    </div>
 
-
-    <div class="seat-list">
-      
-    </div>
+   <div>
+    <button id="confirm-button" class="btn btn-success">Confirm reservation</button>
   </div>
 
-  <div class="col-md-6">
-     <h4>current selection</h4>   
-    <div id="reserve">
-      
-
-    </div>
-
-    <div>
-      <button id="confirm-button" class="btn btn-success">Confirm reservation</button>
-    </div>
-
-  </div>
+</div>
 
 
 
 
 </div>
-    
+
 
 
 <div id="token"><%= form_authenticity_token %></div>
-  <script>
-    $(document).ready(function() {
+<script>
+$(document).ready(function() {
 
-      $('#confirm-button').hide();
+  $('#confirm-button').hide();
 
-      var loadSeatsView = function() {
-        $(".seat-list").empty();
-        
+  var loadSeatsView = function() {
+    $(".seat-list").empty();
 
-        var columns = parseInt($(".airplane-column").html());
 
-        App.seats.each(function(seat){
+    var columns = parseInt($(".airplane-column").html());
+
+    App.seats.each(function(seat){
           //create
           var seatItemView = new App.SeatItemView({model: seat})
           //render
@@ -64,7 +73,7 @@
           }
 
         });
-      }
+  }
 
       // load seats from flight
       App.seats = new App.Seats();
@@ -84,19 +93,19 @@
 
       var updateSeat = function(seat) {
         var saveOption = {
-                  url: '/seats/'+seat.id,
-                  type: 'PATCH',
-                  dataType: 'json',
-                  data: { 
-                    seat: {
-                      user_id: <%= current_user.id %>,
-                      reseverd: 'taken'
-                    }
-                  },
-                  beforeSend: function(xhr){
-                    xhr.setRequestHeader('X-CSRF-Token', $('#token').html())
-                  }
-                }
+          url: '/seats/'+seat.id,
+          type: 'PATCH',
+          dataType: 'json',
+          data: { 
+            seat: {
+              user_id: <%= current_user.id %>,
+              reseverd: 'taken'
+            }
+          },
+          beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', $('#token').html())
+          }
+        }
 
         var updateSeat = $.ajax(saveOption);
 
@@ -109,7 +118,7 @@
           App.confirmedArray.push(seat)
           confirmationCompleted()
         }).fail(function(seat){
-      });
+        });
       } // close updateSeat function
 
 
@@ -126,7 +135,7 @@
       App.toggleSelection = function(){
         $('#reserve').empty();
         _.each(App.seatsArray, function(seat){
-          var html = "<div id=''><h5>Seat</h5><p>row: "+seat.attributes.row+" column: "+seat.attributes.column+"</p></div>"
+          var html = "<div id=''><h5><strong>Seat</strong></h5><p>row: "+seat.attributes.row+" column: "+seat.attributes.column+"</p></div>"
           $('#reserve').append(html)
         })
         App.toggleReserveButton(); 
@@ -147,5 +156,5 @@
 
       
     }); // document ready close
-  </script>
->>>>>>> master
+
+</script>
