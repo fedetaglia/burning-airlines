@@ -9,5 +9,23 @@ class Flight < ActiveRecord::Base
 
   belongs_to :airplane
   has_many :reservations
+  has_many :seats
+
+  def create_seats
+    rows = self.airplane.rows
+    columns = self.airplane.columns
+
+    rows.times do |x|
+      row = x + 1
+      columns.times do |y|
+        col = y + 1
+        seat = self.seats.create( {row: row, column: col} )
+      end
+    end
+
+  end
+
+
+
 
 end

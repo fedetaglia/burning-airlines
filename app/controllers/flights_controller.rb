@@ -11,12 +11,15 @@ class FlightsController < ApplicationController
       @flights = Flight.all
     end
     @users = User.all
+    @flight = Flight.new
+    @users = User.all
+    @airplanes = Airplane.all
+
   end
 
   # GET /flights/1
   # GET /flights/1.json
   def show
-        authorize @flight
   end
 
   # GET /flights/new
@@ -33,11 +36,13 @@ class FlightsController < ApplicationController
   def create
     @flight = Flight.new(flight_params)
 
-    # authorize @flight
+    @flights = Flight.all
+    authorize @flight
 
     respond_to do |format|
       if @flight.save
-        format.html { redirect_to @flight, notice: 'Flight was successfully created.' }
+        @flight.create_seats
+        format.html { redirect_to flights_path, notice: 'Flight was successfully created.' }
         format.json { render action: 'show', status: :created, location: @flight }
       else
         format.html { render action: 'new' }

@@ -5,7 +5,11 @@ BurningAirlines::Application.routes.draw do
 
   resources :reservations
 
+
   get '/search' => 'search#index', :as => :search
+
+  resources :seats
+
 
   devise_for :users
 

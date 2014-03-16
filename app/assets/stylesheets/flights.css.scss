@@ -1,3 +1,34 @@
 // Place all the styles related to the Flights controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.seat-list > div {
+  display:inline-block;
+}
+
+
+.seat {
+  font-size: 20px;
+  padding: 3px;
+  cursor: pointer;
+  &:hover{
+    color:blue;
+  }
+}
+
+.free {
+    color: green;
+  }
+
+
+.pend {
+  color: purple;
+}
+
+
+.taken {
+  color: red;
+  &:hover {
+    cursor: default;
+  };
+}
+
