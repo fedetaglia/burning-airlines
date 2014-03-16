@@ -15,12 +15,20 @@
   }
 }
 
-
 .free {
-  color: green;
-}
+    color: green;
+  }
 
 
 .pend {
   color: purple;
 }
+
+
+.taken {
+  color: red;
+  &:hover {
+    cursor: default;
+  };
+}
+

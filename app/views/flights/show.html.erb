@@ -2,66 +2,149 @@
 
 <div class="row">
   
-<div class="col-md-6">
-  <div class="information">
-  <p><strong>Number:</strong><%= @flight.number %></p>
-  <p><strong>Origin:</strong><%= @flight.origin %></p>
-  <p><strong>Destination:</strong><%= @flight.destination %></p>
-  <p><strong>Date:</strong><%= @flight.date %></p>
-  <p><strong>Plane:</strong><%= @flight.airplane.name %></p>
-  <p><strong>Rows:</strong><span class="airplane-row"><%= @flight.airplane.rows %></span></p>
-  <p><strong>Column:</strong><span class="airplane-column"><%= @flight.airplane.columns%></span></p>
-</div>
+  <div class="col-md-6">
+    <div class="information">
+      <p><strong>Number:</strong><%= @flight.number %></p>
+      <p><strong>Origin:</strong><%= @flight.origin %></p>
+      <p><strong>Destination:</strong><%= @flight.destination %></p>
+      <p><strong>Date:</strong><%= @flight.date %></p>
+      <p><strong>Plane:</strong><%= @flight.airplane.name %></p>
+      <p><strong>Rows:</strong><span class="airplane-row"><%= @flight.airplane.rows %></span></p>
+      <p><strong>Column:</strong><span class="airplane-column"><%= @flight.airplane.columns%></span></p>
+   </div>
 
 
-  <div class="seat-list">
-    
-  </div>
-</div>
-
-<div class="col-md-6">
-   <h4>current selection</h4>   
-  <div id="reserve">
-    
-
+    <div class="seat-list">
+      
+    </div>
   </div>
 
+  <div class="col-md-6">
+     <h4>current selection</h4>   
+    <div id="reserve">
+      
 
+    </div>
 
+    <div>
+      <button id="confirm-button" class="btn btn-success">Confirm reservation</button>
+    </div>
 
-</div>
+  </div>
 
 
 
 
 </div>
     
-</div>
 
 
+<div id="token"><%= form_authenticity_token %></div>
   <script>
     $(document).ready(function() {
+
+      $('#confirm-button').hide();
+
+      var loadSeatsView = function() {
+        $(".seat-list").empty();
+        
+
+        var columns = parseInt($(".airplane-column").html());
+
+        App.seats.each(function(seat){
+          //create
+          var seatItemView = new App.SeatItemView({model: seat})
+          //render
+          var html = seatItemView.render().el;        
+          //attach
+          $(".seat-list").append(html);
+          //attach br if end of row
+          if (seat.attributes.column === columns){
+            $(".seat-list").append("</br>");
+          }
+
+        });
+      }
+
+      // load seats from flight
       App.seats = new App.Seats();
       App.seats.reset(<%= raw @flight.seats.order(:row, :column).to_json %>);
+      loadSeatsView();
 
-      var columns = parseInt($(".airplane-column").html());
 
-      App.seats.each(function(seat){
-        //create
-        var seatItemView = new App.SeatItemView({model: seat})
-        //render
-        var html = seatItemView.render().el;        
-        //attach
-        $(".seat-list").append(html);
-        
-        if (seat.attributes.column === columns){
-          $(".seat-list").append("</br>");
-        }
+      // confirm selection
+      $('#confirm-button').on('click', function(e){
+        e.preventDefault();
+        $('#confirm-button').disable = true;
+        // update seat status and user
+        _.each(App.seatsArray, function(seat){
+          updateSeat(seat);
+        })
+      }) // close click on confirm-button      
 
+      var updateSeat = function(seat) {
+        var saveOption = {
+                  url: '/seats/'+seat.id,
+                  type: 'PATCH',
+                  dataType: 'json',
+                  data: { 
+                    seat: {
+                      user_id: <%= current_user.id %>,
+                      reseverd: 'taken'
+                    }
+                  },
+                  beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-CSRF-Token', $('#token').html())
+                  }
+                }
+
+        var updateSeat = $.ajax(saveOption);
+
+
+        updateSeat.done(function(){
+          var i = App.seatsArray.indexOf(seat)
+          if(i != -1) {
+            App.seatsArray.splice(i, 1);
+          }
+          App.confirmedArray.push(seat)
+          confirmationCompleted()
+        }).fail(function(seat){
       });
+      } // close updateSeat function
 
-      //App.router = new App.Router();
-      //Backbone.history.start(); 
 
-    });
+      
+      var confirmationCompleted = function() {
+        App.seats.fetch( {data: {flight_id: <%= @flight.id %>} } ).done(function(){
+          loadSeatsView();
+          App.toggleSelection();
+          reservedSuccessfully()
+        })
+        
+      };
+
+      App.toggleSelection = function(){
+        $('#reserve').empty();
+        _.each(App.seatsArray, function(seat){
+          var html = "<div id=''><h5>Seat</h5><p>row: "+seat.attributes.row+" column: "+seat.attributes.column+"</p></div>"
+          $('#reserve').append(html)
+        })
+        App.toggleReserveButton(); 
+      };
+
+      App.toggleReserveButton = function() {
+        if (App.seatsArray.length > 0 ) {
+          $("#confirm-button").show();
+        } else {
+          $("#confirm-button").hide();
+        }
+      }
+
+      var reservedSuccessfully = function() {
+        var success = "<p>Seats reserved successfully</p>"
+        $('#reserve').append(success)
+      }
+
+      
+    }); // document ready close
   </script>

@@ -8,10 +8,8 @@ App.SeatItemView = Backbone.View.extend({
   },
 
   render: function(){
-
     var html = this.template(this.model.toJSON());
     this.$el.html(html);
-
     return this;
   },
 
@@ -19,26 +17,17 @@ App.SeatItemView = Backbone.View.extend({
     this.$el.children().first().toggleClass('free')
     this.$el.children().first().toggleClass('pend') 
     App.seatsArray.push(this.model)
-    this.toggleSelection();
+    App.toggleSelection();
   },
 
   free: function(){
     this.$el.children().first().toggleClass('free')
     this.$el.children().first().toggleClass('pend') 
     var i = App.seatsArray.indexOf(this.model)
-    console.log(i)
     if(i != -1) {
       App.seatsArray.splice(i, 1);
     }
-    this.toggleSelection();
-  },
-
-  // draw selection
-  toggleSelection: function() {
-    $('#reserve').empty();
-    _.each(App.seatsArray, function(seat){
-      var html = "<div id='res-<%= id %>'><h5>Seat</h5><p>row: "+seat.attributes.row+" column: "+seat.attributes.column+"</p></div>"
-      $('#reserve').append(html)
-    }) 
+    App.toggleSelection();
   }
+
 })

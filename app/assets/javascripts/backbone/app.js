@@ -1,4 +1,5 @@
 var App = {
 
-  seatsArray: []
+  seatsArray: [],
+  confirmedArray: []
 }
