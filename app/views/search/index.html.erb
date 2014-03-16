@@ -1,0 +1,18 @@
+<h1>Search page</h1>
+
+
+<%= form_tag flights_path, :method => 'get' do %>
+  <p>
+    <p>Origin</p>
+    <%= text_field_tag :origin, params[:origin] %>
+  </p>
+  <p>
+    <p>Destination</p>
+    <%= text_field_tag :destination, params[:destination] %>
+  </p>
+  <p>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+

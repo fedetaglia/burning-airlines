@@ -5,7 +5,9 @@
     </div>
 
     <ul class="nav navbar-nav navbar-right">
+
     <li><a href="#"><%= current_user.email if current_user %></a></li>
+
       <li class="dropdown">
         <a href="#" class="dropdown-toggle element" data-toggle="dropdown">Account <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -25,4 +27,5 @@
   <%= link_to 'Flights', flights_path, :class => "btn btn-default" %>
   <%= link_to 'Airplanes', airplanes_path, :class => "btn btn-default" %>
   <%= link_to 'Reservations', reservations_path, :class => "btn btn-default" %>
+  <%= link_to 'Search', search_path, :class => "btn btn-default" %>
 <section>

@@ -1,13 +1,20 @@
 class FlightsController < ApplicationController
   before_action :set_flight, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:new]
 
   # GET /flights
   # GET /flights.json
   def index
-    @flights = Flight.all
+    if params
+      @flights = Flight.where("origin LIKE ? AND destination LIKE ?", params[:origin], params[:destination])
+    else
+      @flights = Flight.all
+    end
+    @users = User.all
     @flight = Flight.new
     @users = User.all
     @airplanes = Airplane.all
+
   end
 
   # GET /flights/1
@@ -28,6 +35,7 @@ class FlightsController < ApplicationController
   # POST /flights.json
   def create
     @flight = Flight.new(flight_params)
+
     @flights = Flight.all
     authorize @flight
 
@@ -46,7 +54,7 @@ class FlightsController < ApplicationController
   # PATCH/PUT /flights/1
   # PATCH/PUT /flights/1.json
   def update
-    authorize @flight
+    # authorize @flight
     respond_to do |format|
       if @flight.update(flight_params)
         format.html { redirect_to @flight, notice: 'Flight was successfully updated.' }
@@ -61,7 +69,7 @@ class FlightsController < ApplicationController
   # DELETE /flights/1
   # DELETE /flights/1.json
   def destroy
-    authorize @flight
+    # authorize @flight
     @flight.destroy
     respond_to do |format|
       format.html { redirect_to flights_url }
@@ -73,6 +81,10 @@ class FlightsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_flight
       @flight = Flight.find(params[:id])
+    end
+
+    def set_user
+      @user = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
